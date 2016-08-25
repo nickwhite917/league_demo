@@ -141,7 +141,7 @@ exports.postUpdateProfile = (req, res, next) => {
     user.profile.name = req.body.name || '';
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';
-    user.profile.religion = req.body.religion || 'Unspecified';
+    user.profile.religion = req.body.myReligion || 'Unspecified';
     user.profile.website = req.body.website || '';
     user.profile.age = req.body.myAge;
     user.profile.loc = [req.body.latitude,req.body.longitude] || [0,0];
