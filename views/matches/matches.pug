@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .col-sm-8.col-sm-offset-2
+  h2 Below are 5 of your matches - they're just eye candy for now. Interaction coming soon!
+  p= user._id
+  if matches.length > 0
+    ul
+      each match in matches
+          .list-group
+            a.list-group-item(href='#')
+              h4.list-group-item-heading= match.profile.name + " - " + match.profile.age
+              p.list-group-item-text= match.profile.gender
+  else
+    h4 Sorry, no matches right now. 
