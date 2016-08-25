@@ -36,7 +36,7 @@ const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const matchesController = require('./controllers/matches');
 
-
+  
 /**
  * API keys and Passport configuration.
  */
