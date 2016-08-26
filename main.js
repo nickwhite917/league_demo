@@ -1,8 +1,8 @@
 var pm2 = require('pm2');
 
 var MACHINE_NAME = 'hk1';
-var PRIVATE_KEY  = process.env.KEYMETRICS_PRIVATE_KEY ||  'ka8euivsest49or';   // Keymetrics Private key
-var PUBLIC_KEY   = process.env.KEYMETRICS_PUBLIC_KEY || 'hz16fkkh5yuiesc';   // Keymetrics Public  key
+var PRIVATE_KEY  = process.env.KEYMETRICS_PRIVATE_KEY ||  'hz16fkkh5yuiesc';   // Keymetrics Private key
+var PUBLIC_KEY   = process.env.KEYMETRICS_PUBLIC_KEY || 'ka8euivsest49or';   // Keymetrics Public  key
 
 var instances = process.env.WEB_CONCURRENCY || -1; // Set by Heroku or -1 to scale to max cpu core -1
 var maxMemory = process.env.WEB_MEMORY      || 512;// " " "
