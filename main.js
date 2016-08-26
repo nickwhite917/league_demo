@@ -1,10 +1,10 @@
 var pm2 = require('pm2');
 
-var MACHINE_NAME = 'hk1';
+var MACHINE_NAME = 'Heroku_Server_1';
 var PRIVATE_KEY  = process.env.KEYMETRICS_PRIVATE_KEY;   // Keymetrics Private key
 var PUBLIC_KEY   = process.env.KEYMETRICS_PUBLIC_KEY;   // Keymetrics Public  key
 
-var instances = process.env.WEB_CONCURRENCY || -1; // Set by Heroku or -1 to scale to max cpu core -1
+var instances = 2 //process.env.WEB_CONCURRENCY || -1; // Set by Heroku or -1 to scale to max cpu core -1
 var maxMemory = process.env.WEB_MEMORY      || 512;// " " "
 
 //PM2
