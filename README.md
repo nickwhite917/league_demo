@@ -74,6 +74,8 @@ cd myproject
 npm install
 
 node app.js
+
+OR use pm2 start app.js -i for production  usage
 ```
 
 **Note:** I highly recommend installing [Nodemon](https://github.com/remy/nodemon).
