@@ -6,7 +6,7 @@
     "url": "https://github.com/nickwhite917/league"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node main.js",
     "test": "mocha --reporter spec --timeout 5000",
     "preinstall": "npm i -g pm2"
   },
