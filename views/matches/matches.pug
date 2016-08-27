@@ -9,7 +9,12 @@ block content
       each match in matches
           .list-group
             a.list-group-item(href='#')
-              h4.list-group-item-heading= match.profile.name + " - " + match.profile.age
-              p.list-group-item-text= match.profile.gender
+              h4.list-group-item-heading= match.profile.name
+              img(src=match.gravatar(), class='profile', width='100', height='100')
+              p.list-group-item-text= 'Age: ' + match.profile.age
+              p.list-group-item-text= 'Gender: ' + match.profile.gender
+              p.list-group-item-text= 'Location: ' + (match.profile.location || "Unspecified")
+              p.list-group-item-text= 'Website: ' + (match.profile.website || "None")
+              p.list-group-item-text= 'Religion: ' + match.profile.religion
   else
     h4 Sorry, no matches right now. 
