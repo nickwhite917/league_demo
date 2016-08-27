@@ -134,7 +134,7 @@ userSchema.methods.getUsersThatMatchMyPreferences = function (cb) {
     // });
     query.where('profile.age').gte(thisUser.preferences.ageRangeLow).lte(thisUser.preferences.ageRangeHigh);
     query.where('profile.gender').equals(thisUser.preferences.gender);
-    query.where('profile.religion').equals(thisUser.preferences.religion[0]);
+    query.where('profile.religion').in([thisUser.preferences.religion[0],'Unspecified']);
 
   query.exec(function (err, matches) {
     cb(matches);
