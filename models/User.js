@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt-nodejs');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
+console.log("user.js");
+var zipcodes = require('zipcodes');
 
 const userSchema = new mongoose.Schema({
 
@@ -26,10 +28,9 @@ const userSchema = new mongoose.Schema({
     age: { type: String, default: '' },
     gender: { type: String, default: '' },
     religion: { type: String, default: '' },
-    loc: {
-      type: [Number],
-      index: '2d',
-      default: [0, 0]
+    zip: {
+      type: Number,
+      default: [0]
     },
     website: { type: String, default: '' },
     picture: { type: String, default: '' }
@@ -39,7 +40,7 @@ const userSchema = new mongoose.Schema({
   preferences: {
     ageRangeLow: { type: String, default: '18' },
     ageRangeHigh: { type: String, default: '65' },
-    distance: { type: String, default: "20" },
+    distance: { type: Number, default: 20 },
     gender: { type: String },
     religion: { type: [] }
   },
@@ -50,7 +51,6 @@ const userSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-userSchema.index({ 'profile.loc': '2d' });
 /**
  * Password hash middleware.
  */
@@ -93,21 +93,21 @@ userSchema.methods.gravatar = function (size) {
 /*
 * Updates matches when user is added, updated, or deleted.
 */
-userSchema.methods.updateMatches = function (updateType) {
-  //Get current user reference
-  var thisUser = this;
-  // if (updateType) {
-  //   if (updateType == "create") {
-  //     createInitialMatches(thisUser);
-  //   }
-  //   if (updateType == "update") {
-  //     updateExistingMatches(thisUser);
-  //   }
-  //   if (updateType == "delete") {
-  //     deleteExistingMatches(thisUser);
-  //   }
-  // }
-};
+// userSchema.methods.updateMatches = function (updateType) {
+//   //Get current user reference
+//   var thisUser = this;
+//   // if (updateType) {
+//   //   if (updateType == "create") {
+//   //     createInitialMatches(thisUser);
+//   //   }
+//   //   if (updateType == "update") {
+//   //     updateExistingMatches(thisUser);
+//   //   }
+//   //   if (updateType == "delete") {
+//   //     deleteExistingMatches(thisUser);
+//   //   }
+//   // }
+// };
 userSchema.methods.preferencesAreValidated = function () {
   var validated = false;
   if (this.preferences.ageRangeLow != undefined
@@ -115,29 +115,29 @@ userSchema.methods.preferencesAreValidated = function () {
     && this.preferences.distance != undefined
     && this.preferences.gender != undefined
     && this.preferences.religion.length > 0
-    && this.profile.loc[0] != 0
-    && this.profile.loc[1] != 0
+    && this.profile.zip != 0
   ) {
     validated = true;
   }
   return validated;
 }
+
 userSchema.methods.getUsersThatMatchMyPreferences = function (cb) {
-    var thisUser = this;
-    var query = User.find({});
-    // query.where('profile.loc').near({
-    //   center: {
-    //     type: 'Point',
-    //     coordinates: [-73.9667,40.78]
-    //   },
-    //   maxDistance: 10
-    // });
-    query.where('profile.age').gte(thisUser.preferences.ageRangeLow).lte(thisUser.preferences.ageRangeHigh);
-    query.where('profile.gender').equals(thisUser.preferences.gender);
-    query.where('profile.religion').in([thisUser.preferences.religion[0],'Unspecified']);
+  var thisUser = this;
+  var query = User.find({});
+  query.where('profile.age').gte(thisUser.preferences.ageRangeLow).lte(thisUser.preferences.ageRangeHigh);
+  query.where('profile.gender').equals(thisUser.preferences.gender);
+  query.where('profile.religion').in([thisUser.preferences.religion[0], 'Unspecified']);
 
   query.exec(function (err, matches) {
-    cb(matches);
+    var matchesInDistance = [];
+    console.log("About to test matches for distance...");
+    matches.forEach(function(match){
+      if(zipcodes.distance(match.profile.zip,thisUser.profile.zip) <= thisUser.preferences.distance){
+        matchesInDistance.push(match);
+      }
+    });
+    cb(matchesInDistance);
   });
   // .where('profile.age').gt(thisUser.preferences.ageRangeLow).lt(thisUser.preferences.ageRangeHigh)
   // .where('profile.gender').equals(thisUser.preferences.gender)

@@ -140,11 +140,11 @@ exports.postUpdateProfile = (req, res, next) => {
     user.email = req.body.email || '';
     user.profile.name = req.body.name || '';
     user.profile.gender = req.body.gender || '';
-    user.profile.location = req.body.location || '';
+    user.profile.zip = req.body.zip || 0;
     user.profile.religion = req.body.myReligion || 'Unspecified';
     user.profile.website = req.body.website || '';
     user.profile.age = req.body.myAge;
-    user.profile.loc = [req.body.latitude,req.body.longitude] || [0,0];
+    user.profile.zip = req.body.zip || 0;
     user.preferences.distance = req.body.distance || 20;
     user.preferences.gender = req.body.prefGender;
     user.preferences.ageRangeLow = req.body.minAge || 18;
@@ -158,7 +158,7 @@ exports.postUpdateProfile = (req, res, next) => {
         }
         return next(err);
       }
-      user.updateMatches("update");
+      // user.updateMatches("update");
       req.flash('success', { msg: 'Profile information has been updated.' });
       res.redirect('/account');
     });
@@ -198,7 +198,7 @@ exports.postUpdatePassword = (req, res, next) => {
 exports.postDeleteAccount = (req, res, next) => {
   User.findById(req.user.id, (err, user) => {
     if (err) { return next(err); }
-    user.updateMatches("delete");
+    // user.updateMatches("delete");
   });
   User.remove({ _id: req.user.id }, (err) => {
     if (err) { return next(err); }

@@ -34,11 +34,9 @@ block content
           input(type='radio', checked=user.profile.gender=='other', name='gender', value='other', data-toggle='radio')
           span Other
     .form-group
-      label.col-sm-3.control-label(for='location') Location
-      .col-sm-3
-        input.form-control(type='text', name='latitude', id='latitude', value=user.profile.loc[0])
-      .col-sm-3
-        input.form-control(type='text', name='longitude', id='longitude', value=user.profile.loc[1])
+      label.col-sm-3.control-label(for='zip') Zip Code
+      .col-sm-7
+        input.form-control(type='text', name='zip', id='zip', value=user.profile.zip)
     .form-group
       label.col-sm-3.control-label(for='website') Website
       .col-sm-7

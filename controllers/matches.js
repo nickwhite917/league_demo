@@ -1,17 +1,7 @@
 "use strict";
 const User = require('../models/User');
 
-var distance = require('google-distance');
-function findDistance(me, them) {
-    distance.get(
-        {
-            origin: me,
-            destination: them
-        },
-        function (err, data) {
-            return data;
-        });
-}
+// dist = 1662
 /**
  * GET /match
  * Match page

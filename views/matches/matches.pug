@@ -15,8 +15,8 @@ block content
                 img(src=match.gravatar(), class='profile', width='100', height='100')
                 p= 'Age: ' + match.profile.age
                 p= 'Gender: ' + match.profile.gender
-                p= 'Location: ' + (match.profile.location || "Unspecified")
-                p= 'Website: ' + (match.profile.website || "None")
+                p= 'Location: ' + (match.profile.zip || "Unspecified Zip Code")
+                p= 'Website: ' + (match.profile.website || "No Religion")
                 p= 'Religion: ' + match.profile.religion
   else
     h4 Sorry, no matches right now. 
