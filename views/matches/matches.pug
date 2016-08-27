@@ -2,20 +2,21 @@ extends ../layout
 
 block content
   .col-sm-8.col-sm-offset-2
-  h2 Below are 5 of your matches - they're just eye candy for now. Interaction coming soon!
-  p= user._id
   if matches.length > 0
-    ul
-      each match in matches
-        .col-sm-6
-          .list-group
-            a.list-group-item(href='#')
-              h4.list-group-item-heading= match.profile.name
-              img(src=match.gravatar(), class='profile', width='100', height='100')
-              p.list-group-item-text= 'Age: ' + match.profile.age
-              p.list-group-item-text= 'Gender: ' + match.profile.gender
-              p.list-group-item-text= 'Location: ' + (match.profile.location || "Unspecified")
-              p.list-group-item-text= 'Website: ' + (match.profile.website || "None")
-              p.list-group-item-text= 'Religion: ' + match.profile.religion
+    h1 You have #{matches.length} match/s
+    h3 They're just eye candy for now. You'll be about to send them messages soon!
+    .col-sm-12
+      ul
+        each match in matches
+          .col-sm-4.text-center
+            .list-group
+              a.list-group-item(href='#')
+                h3.list-group-item-heading= match.profile.name
+                img(src=match.gravatar(), class='profile', width='100', height='100')
+                p= 'Age: ' + match.profile.age
+                p= 'Gender: ' + match.profile.gender
+                p= 'Location: ' + (match.profile.location || "Unspecified")
+                p= 'Website: ' + (match.profile.website || "None")
+                p= 'Religion: ' + match.profile.religion
   else
     h4 Sorry, no matches right now. 
